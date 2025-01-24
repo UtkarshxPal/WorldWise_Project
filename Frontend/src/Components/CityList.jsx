@@ -1,6 +1,6 @@
 import { useContext } from "react";
-// import CityItem from "./CItyItem";
-import CityItems from "./CityItems";
+import CityItem from "./CItyItem";
+
 import styles from "./CityList.module.css";
 import Message from "./Message";
 import Spinner from "./Spinner";
@@ -17,7 +17,7 @@ function CityList() {
   ) : (
     <ul className={styles.cityList}>
       {cities.map((city) => (
-        <CityItems key={city.id} city={city}></CityItems>
+        <CityItem key={city.id} city={city}></CityItem>
       ))}
     </ul>
   );
