@@ -1,0 +1,59 @@
+.itenary {
+  height: calc(100vh - 5rem);
+  margin: 2.5rem;
+  background-image: linear-gradient(
+      rgba(36, 42, 46, 0.8),
+      rgba(36, 42, 46, 0.8)
+    ),
+    url("/itnearypic.webp");
+  background-size: cover;
+  background-position: center;
+  padding: 2.5rem 5rem;
+}
+/* .itenary {
+  margin: 2.5rem;
+  padding: 2.5rem 5rem;
+  background-color: var(--color-dark--1);
+  min-height: calc(100vh - 5rem);
+  background-color: black;
+} */
+.pages {
+  padding: 2.5rem 5rem;
+  background-color: var(--color-dark--1);
+  min-height: calc(100vh - 5rem);
+}
+
+.product {
+  margin: 2.5rem;
+  padding: 2.5rem 5rem;
+  background-color: var(--color-dark--1);
+  min-height: calc(100vh - 5rem);
+}
+
+.itenary section {
+  width: clamp(80rem, 80%, 90rem);
+  margin: 6rem auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7rem;
+  align-items: center;
+}
+
+.itenary section img {
+  width: 100%;
+}
+
+.itenary h2 {
+  font-size: 4rem;
+  line-height: 1.2;
+  margin-bottom: 3rem;
+}
+
+.itenary p {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+}
+
+.itenary section a {
+  margin-top: 2rem;
+}
