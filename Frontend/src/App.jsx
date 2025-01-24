@@ -3,7 +3,8 @@ import Product from "./pages/Product";
 import HomePage from "./pages/HomePage";
 import Pricing from "./pages/Pricing";
 import PageNotFound from "./pages/PageNotFound";
-import AppLayout from "./pages/appLayout";
+// import AppLayout from "./pages/appLayout";
+import LayoutApp from "./pages/LayoutApp";
 import Login from "./pages/Login";
 import CityList from "./Components/CityList";
 import Form from "./Components/Form";
@@ -29,7 +30,7 @@ function App() {
               path="app"
               element={
                 <ProtectedRoute>
-                  <AppLayout></AppLayout>
+                  <LayoutApp></LayoutApp>
                 </ProtectedRoute>
               }
             >
