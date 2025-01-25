@@ -1,59 +1,200 @@
-.itenary {
-  height: calc(100vh - 5rem);
-  margin: 2.5rem;
+.createItinerary {
+  min-height: 100vh;
   background-image: linear-gradient(
-      rgba(36, 42, 46, 0.8),
-      rgba(36, 42, 46, 0.8)
+      rgba(36, 42, 46, 0.75),
+      rgba(36, 42, 46, 0.85)
     ),
-    url("/itnearypic.webp");
+    url("/travel-bg.jpg");
   background-size: cover;
   background-position: center;
-  padding: 2.5rem 5rem;
-}
-/* .itenary {
-  margin: 2.5rem;
-  padding: 2.5rem 5rem;
-  background-color: var(--color-dark--1);
-  min-height: calc(100vh - 5rem);
-  background-color: black;
-} */
-.pages {
-  padding: 2.5rem 5rem;
-  background-color: var(--color-dark--1);
-  min-height: calc(100vh - 5rem);
+  background-attachment: fixed;
+  color: var(--color-light--2);
+  padding-bottom: 4.8rem;
 }
 
-.product {
-  margin: 2.5rem;
-  padding: 2.5rem 5rem;
-  background-color: var(--color-dark--1);
-  min-height: calc(100vh - 5rem);
+.container {
+  max-width: 130rem;
+  margin: 0 auto;
+  padding: 4.8rem;
 }
 
-.itenary section {
-  width: clamp(80rem, 80%, 90rem);
-  margin: 6rem auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 7rem;
-  align-items: center;
+.content {
+  max-width: 100rem;
+  margin: 0 auto;
+  background-color: rgba(45, 49, 53, 0.4);
+  border-radius: 7px;
+  padding: 5rem;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.25),
+    0 0 2rem rgba(255, 255, 255, 0.1);
+  overflow-x: hidden;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.itenary section img {
-  width: 100%;
+.content h2 {
+  font-size: 3.2rem;
+  margin-bottom: 3.2rem;
+  text-align: center;
+  color: var(--color-brand--2);
 }
 
-.itenary h2 {
-  font-size: 4rem;
-  line-height: 1.2;
-  margin-bottom: 3rem;
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  margin-bottom: 2.4rem;
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 3.2rem;
+  background: none;
+  border: none;
 }
 
-.itenary p {
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.row label {
   font-size: 1.6rem;
-  margin-bottom: 2rem;
+  font-weight: 600;
+  color: var(--color-light--2);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.itenary section a {
-  margin-top: 2rem;
+.row input {
+  font-size: 1.6rem;
+  padding: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: all 0.3s;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--color-light--2);
+  backdrop-filter: blur(5px);
+}
+
+.row input::placeholder {
+  color: var(--color-light--1);
+}
+
+.row input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1),
+    0 0 0 3px rgba(0, 196, 106, 0.2);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: 2.4rem;
+}
+
+.button,
+.backButton {
+  text-transform: uppercase;
+  padding: 1.2rem 2.4rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.button {
+  background-color: var(--color-brand--2);
+  color: var(--color-dark--1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.backButton {
+  background-color: rgba(45, 49, 53, 0.9);
+  color: var(--color-light--1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+.button:hover {
+  background-color: var(--color-brand--1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.backButton:hover {
+  background-color: rgba(45, 49, 53, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button:disabled {
+  background-color: var(--color-light--3);
+  color: var(--color-dark--2);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.error {
+  color: var(--color-brand--2);
+  font-size: 1.4rem;
+  text-align: center;
+  margin: 1.6rem 0;
+}
+
+.itineraryResult {
+  margin-top: 4rem;
+  padding: 3.2rem;
+  background-color: rgba(45, 49, 53, 0.6);
+  border-radius: 7px;
+  max-height: 70vh;
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.2),
+    0 0 1rem rgba(255, 255, 255, 0.1);
+}
+
+.itineraryResult::-webkit-scrollbar {
+  width: 10px;
+}
+
+.itineraryResult::-webkit-scrollbar-track {
+  background: rgba(45, 49, 53, 0.3);
+  border-radius: 5px;
+}
+
+.itineraryResult::-webkit-scrollbar-thumb {
+  background: var(--color-brand--2);
+  border-radius: 5px;
+  border: 2px solid rgba(45, 49, 53, 0.3);
+}
+
+.itineraryResult::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand--1);
+}
+
+.itineraryResult h3 {
+  font-size: 2.4rem;
+  color: var(--color-brand--2);
+  margin-bottom: 2.4rem;
+  position: sticky;
+  top: 0;
+  background-color: rgba(45, 49, 53, 0.95);
+  padding: 1rem 0;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.itineraryContent {
+  font-size: 1.7rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  color: var(--color-light--1);
+  padding-right: 1.6rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }

@@ -16,9 +16,9 @@ function PageNav() {
         <li>
           <NavLink to="/product">Product</NavLink>
         </li>
-        {/* <li>
+        <li>
           <NavLink to="/itenary">Create Itenary</NavLink>
-        </li> */}
+        </li>
         <li>
           <NavLink to="/login" className={styles.ctaLink}>
             Login
