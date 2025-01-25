@@ -3,10 +3,8 @@
   flex-direction: column;
   align-items: center;
   gap: 0.2rem;
-
   font-size: 1.7rem;
   font-weight: 600;
-
   background-color: var(--color-dark--2);
   border-radius: 7px;
   padding: 1rem 2rem;
@@ -16,4 +14,37 @@
 .countryItem span:first-child {
   font-size: 3rem;
   line-height: 1;
+}
+
+@media (max-width: 600px) {
+  .countryItem {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .countryItem span:first-child {
+    font-size: 2.6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .countryItem {
+    padding: 1rem 1.8rem;
+    font-size: 1.6rem;
+  }
+
+  .countryItem span:first-child {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .countryItem {
+    padding: 1rem 2rem;
+    font-size: 1.7rem;
+  }
+
+  .countryItem span:first-child {
+    font-size: 3rem;
+  }
 }

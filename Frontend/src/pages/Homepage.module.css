@@ -32,3 +32,55 @@
   color: var(--color-light--1);
   margin-bottom: 2.5rem;
 }
+
+/* Responsive Media Queries */
+
+/* Small screens (mobile) */
+@media (max-width: 600px) {
+  .homepage {
+    margin: 1.5rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .homepage section {
+    gap: 1.5rem;
+  }
+
+  .homepage h1 {
+    font-size: 3rem; /* Reduce font size for smaller screens */
+    line-height: 1.2;
+  }
+
+  .homepage h2 {
+    font-size: 1.6rem; /* Adjust font size */
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Medium screens (tablet) */
+@media (max-width: 768px) {
+  .homepage {
+    margin: 2rem;
+    padding: 2rem 3rem;
+  }
+
+  .homepage h1 {
+    font-size: 3.5rem; /* Adjust font size for tablets */
+  }
+
+  .homepage h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Large screens (desktop) */
+@media (max-width: 1024px) {
+  .homepage {
+    margin: 2.5rem;
+    padding: 2.5rem 4rem;
+  }
+
+  .homepage h1 {
+    font-size: 4rem; /* Slight adjustment for larger screens */
+  }
+}

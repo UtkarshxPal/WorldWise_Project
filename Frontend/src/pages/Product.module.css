@@ -32,3 +32,69 @@
 .product section a {
   margin-top: 2rem;
 }
+
+/* Responsive Media Queries */
+
+/* Small screens (mobile) */
+@media (max-width: 600px) {
+  .product {
+    margin: 1.5rem;
+    padding: 1.5rem 2rem;
+    height: auto; /* Allow height to adjust dynamically */
+  }
+
+  .product section {
+    grid-template-columns: 1fr; /* Stack content vertically */
+    gap: 3rem;
+  }
+
+  .product section img {
+    max-height: 30rem; /* Prevent images from getting too large */
+    object-fit: cover; /* Ensure the image scales well */
+  }
+
+  .product h2 {
+    font-size: 3rem; /* Reduce font size */
+  }
+
+  .product p {
+    font-size: 1.4rem; /* Adjust paragraph font size */
+  }
+
+  .product section a {
+    margin-top: 1.5rem;
+  }
+}
+
+/* Medium screens (tablet) */
+@media (max-width: 768px) {
+  .product {
+    margin: 2rem;
+    padding: 2rem 3rem;
+  }
+
+  .product section {
+    grid-template-columns: 1fr; /* Stack content vertically */
+    gap: 5rem;
+  }
+
+  .product h2 {
+    font-size: 3.5rem;
+  }
+
+  .product p {
+    font-size: 1.5rem;
+  }
+}
+
+/* Large screens (desktop) */
+@media (max-width: 1024px) {
+  .product {
+    margin: 2.5rem;
+    padding: 2.5rem 4rem;
+  }
+
+  .product h2 {
+    font-size: 3.8rem;
+  }
+}

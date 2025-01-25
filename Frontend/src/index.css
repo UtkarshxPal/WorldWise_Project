@@ -1,8 +1,8 @@
-/* Taken from getting started guide at: https://leafletjs.com/examples/quick-start/ */
+/* Global styles remain unchanged */
 @import "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
 @import "https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap";
 
-/* These CSS variables are global, so they are available in all CSS modules */
+/* Root Variables */
 :root {
   --color-brand--1: #ffb545;
   --color-brand--2: #00c46a;
@@ -15,6 +15,7 @@
   --color-light--3: #d6dee0;
 }
 
+/* Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -22,7 +23,7 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 62.5%; /* 1rem = 10px */
   box-sizing: border-box;
 }
 
@@ -68,11 +69,55 @@ input:focus {
   border-radius: 5px;
 }
 
-/*
-"importCSSModule": {
-    "prefix": "csm",
-    "scope": "javascript,typescript,javascriptreact",
-    "body": ["import styles from './${TM_FILENAME_BASE}.module.css'"],
-    "description": "Import CSS Module as `styles`"
-  },
- */
+/* Responsive Media Queries */
+
+/* Small screens (mobile) */
+@media (max-width: 600px) {
+  html {
+    font-size: 50%; /* 1rem = 8px */
+  }
+
+  label {
+    font-size: 1.4rem;
+  }
+
+  input,
+  textarea {
+    font-size: 1.4rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .cta:link,
+  .cta:visited {
+    font-size: 1.4rem;
+    padding: 0.8rem 2rem;
+  }
+}
+
+/* Medium screens (tablet) */
+@media (max-width: 768px) {
+  html {
+    font-size: 56.25%; /* 1rem = 9px */
+  }
+
+  label {
+    font-size: 1.5rem;
+  }
+
+  .cta:link,
+  .cta:visited {
+    padding: 0.9rem 2.5rem;
+  }
+}
+
+/* Large screens (desktop) */
+@media (max-width: 1024px) {
+  html {
+    font-size: 60%; /* 1rem = 9.6px */
+  }
+
+  .cta:link,
+  .cta:visited {
+    padding: 1rem 2.8rem;
+  }
+}

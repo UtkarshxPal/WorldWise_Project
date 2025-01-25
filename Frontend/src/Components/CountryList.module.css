@@ -4,9 +4,32 @@
   list-style: none;
   overflow-y: auto;
   overflow-x: auto;
-
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-content: start;
   gap: 1.6rem;
+}
+
+@media (max-width: 600px) {
+  .countryList {
+    height: 50vh;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .countryList {
+    height: 60vh;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .countryList {
+    height: 65vh;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+  }
 }

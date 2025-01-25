@@ -5,3 +5,27 @@
   display: flex;
   position: relative;
 }
+
+/* Responsive Media Queries */
+
+/* Small screens (mobile) */
+@media (max-width: 600px) {
+  .app {
+    padding: 1.5rem;
+    height: auto; /* Allow height to adjust dynamically */
+  }
+}
+
+/* Medium screens (tablet) */
+@media (max-width: 768px) {
+  .app {
+    padding: 2rem;
+  }
+}
+
+/* Large screens (desktop) */
+@media (max-width: 1024px) {
+  .app {
+    padding: 2.4rem;
+  }
+}

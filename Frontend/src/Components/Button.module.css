@@ -33,3 +33,71 @@
   color: var(--color-dark--1);
   box-shadow: 0 0.4rem 1.2rem rgba(36, 42, 46, 0.16);
 }
+
+/* Responsive Media Queries */
+
+/* Small screens (mobile) */
+@media (max-width: 600px) {
+  .btn {
+    font-size: 1.3rem; /* Smaller font size for mobile */
+    padding: 0.7rem 1.4rem; /* Adjust padding for better mobile fit */
+  }
+
+  .primary {
+    font-size: 1.4rem; /* Slightly smaller font size */
+  }
+
+  .back {
+    font-size: 1.4rem; /* Adjust font size */
+    padding: 0.7rem 1.4rem;
+  }
+
+  .position {
+    font-size: 1.2rem; /* Reduce position font size */
+    bottom: 3rem; /* Adjust position of element */
+  }
+}
+
+/* Medium screens (tablet) */
+@media (max-width: 768px) {
+  .btn {
+    font-size: 1.4rem; /* Adjust font size for tablets */
+    padding: 0.75rem 1.5rem; /* Slightly adjusted padding */
+  }
+
+  .primary {
+    font-size: 1.5rem;
+  }
+
+  .back {
+    font-size: 1.5rem;
+    padding: 0.75rem 1.6rem;
+  }
+
+  .position {
+    font-size: 1.3rem; /* Slightly larger font size */
+    bottom: 3.5rem; /* Adjust the position */
+  }
+}
+
+/* Large screens (desktop) */
+@media (max-width: 1024px) {
+  .btn {
+    font-size: 1.5rem; /* Original font size for desktop */
+    padding: 0.8rem 1.6rem;
+  }
+
+  .primary {
+    font-size: 1.6rem; /* Adjust size for better desktop fit */
+  }
+
+  .back {
+    font-size: 1.6rem;
+    padding: 0.8rem 1.7rem;
+  }
+
+  .position {
+    font-size: 1.4rem;
+    bottom: 4rem;
+  }
+}

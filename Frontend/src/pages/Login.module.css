@@ -14,7 +14,6 @@
   flex-direction: column;
   gap: 2rem;
 
-  /* Different from other form */
   width: 48rem;
   margin: 8rem auto;
 }
@@ -23,4 +22,56 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+/* Responsive Media Queries */
+
+/* Small screens (mobile) */
+@media (max-width: 600px) {
+  .login {
+    margin: 1.5rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .form {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    margin: 3rem auto;
+  }
+
+  .row {
+    gap: 1rem;
+  }
+}
+
+/* Medium screens (tablet) */
+@media (max-width: 768px) {
+  .login {
+    margin: 2rem;
+    padding: 2rem 3rem;
+  }
+
+  .form {
+    width: 40rem;
+    padding: 1.5rem 2rem;
+    margin: 6rem auto;
+  }
+
+  .row {
+    gap: 0.8rem;
+  }
+}
+
+/* Large screens (desktop) */
+@media (max-width: 1024px) {
+  .login {
+    margin: 2.5rem;
+    padding: 2.5rem 4rem;
+  }
+
+  .form {
+    width: 48rem;
+    padding: 2rem 3rem;
+    margin: 8rem auto;
+  }
 }

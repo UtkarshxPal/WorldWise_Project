@@ -19,3 +19,17 @@
     transform: rotate(1turn);
   }
 }
+
+@media (max-width: 768px) {
+  .spinner {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .spinner {
+    width: 4rem;
+    height: 4rem;
+  }
+}

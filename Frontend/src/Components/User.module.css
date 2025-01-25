@@ -9,14 +9,13 @@
   box-shadow: 0 0.8rem 2.4rem rgba(36, 42, 46, 0.5);
   font-size: 1.6rem;
   font-weight: 600;
-
   display: flex;
   align-items: center;
   gap: 1.6rem;
 }
 
 .user img {
-  border-radius: 100px;
+  border-radius: 50%;
   height: 4rem;
 }
 

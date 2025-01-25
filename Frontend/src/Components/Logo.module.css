@@ -1,3 +1,21 @@
 .logo {
   height: 5.2rem;
 }
+
+@media (max-width: 600px) {
+  .logo {
+    height: 4.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    height: 5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .logo {
+    height: 5.2rem;
+  }
+}
