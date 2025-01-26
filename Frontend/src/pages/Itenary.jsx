@@ -14,6 +14,7 @@ function CreateItinerary() {
     duration: "",
     people: "1",
   });
+
   const [itinerary, setItinerary] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
