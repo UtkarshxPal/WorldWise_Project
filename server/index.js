@@ -11,6 +11,33 @@ const cookieParser = require("cookie-parser");
 const { checkForAuthentication, restrictTo } = require("./Middlewares/auth");
 const app = express();
 
+const allowedOrigins = [
+  "https://travel-management-worldwise-react.onrender.com",
+  "http://localhost:5173", // local development
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Added OPTIONS
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+    ],
+    exposedHeaders: ["Set-Cookie"],
+    preflightContinue: true,
+  })
+);
+
 const connectDB = async () => {
   try {
     await mongoose.connect(
@@ -25,15 +52,6 @@ const connectDB = async () => {
 };
 
 connectDB();
-
-app.use(
-  cors({
-    origin: "https://travel-management-worldwise-react.onrender.com", // Allow only your frontend URL
-    credentials: true, // Allow cookies and credentials
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

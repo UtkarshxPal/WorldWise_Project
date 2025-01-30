@@ -1,121 +1,164 @@
 import axios from "axios";
 import { createContext, useContext, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+
 const BASE_URL = "https://travel-management-worldwise-backend.onrender.com";
+
+// Create axios instance with default config
+const api = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 const AuthContext = createContext();
 
-const initialState = { user: null, isAuthenticated: false, error: "" };
+const initialState = {
+  user: null,
+  isAuthenticated: false,
+  error: "",
+  loading: false,
+};
 
 function reducer(state, action) {
   switch (action.type) {
     case "login":
-      return { ...state, user: action.payload, isAuthenticated: true };
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: true,
+        error: "",
+      };
     case "logout":
-      return { ...state, user: null, isAuthenticated: false };
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        error: "",
+      };
     case "setError":
-      return { ...state, error: action.payload };
-
+      return { ...state, error: action.payload, loading: false };
+    case "setLoading":
+      return { ...state, loading: action.payload };
+    case "clearError":
+      return { ...state, error: "" };
     default:
       throw new Error("Unknown action");
   }
 }
 
-const FAKE_USER = {
-  name: "Jack",
-  email: "jack@example.com",
-  password: "qwerty",
-  avatar: "https://i.pravatar.cc/100?u=zz",
-};
-
 function AuthProvider({ children }) {
+  const [{ user, isAuthenticated, error, loading }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
+
   async function login(email, password) {
-    // if (email === FAKE_USER.email && password === FAKE_USER.password) {
-    //   dispatch({ type: "login", payload: FAKE_USER });
-    // }
-
     try {
-      if (email && password) {
-        const data = { email, password };
-        const result = await axios.post(`${BASE_URL}/user/login`, data, {
-          withCredentials: true,
-        });
+      dispatch({ type: "setLoading", payload: true });
+      dispatch({ type: "clearError" });
 
-        if (result.data.success === "true") {
-          dispatch({ type: "login", payload: result.data.user });
-        }
+      if (!email || !password) {
+        throw new Error("Email and password are required");
+      }
+
+      const result = await api.post("/user/login", { email, password });
+
+      if (result.data.success === "true") {
+        dispatch({ type: "login", payload: result.data.user });
+        return true;
+      } else {
+        throw new Error(result.data.message || "Login failed");
       }
     } catch (err) {
-      console.log("Could not login", err);
+      const errorMessage =
+        err.response?.data?.message || err.message || "Could not login";
+      dispatch({ type: "setError", payload: errorMessage });
+      console.error("Login error:", errorMessage);
+      return false;
+    } finally {
+      dispatch({ type: "setLoading", payload: false });
     }
   }
 
   async function logout() {
     try {
-      await axios.post(
-        `${BASE_URL}/user/logout`,
-        {},
-        { withCredentials: true }
-      );
+      dispatch({ type: "setLoading", payload: true });
+      dispatch({ type: "clearError" });
+
+      await api.post("/user/logout");
       dispatch({ type: "logout" });
+      return true;
     } catch (err) {
-      console.error("Logout failed", err);
+      const errorMessage = err.response?.data?.message || "Logout failed";
+      dispatch({ type: "setError", payload: errorMessage });
+      console.error("Logout error:", errorMessage);
+      return false;
+    } finally {
+      dispatch({ type: "setLoading", payload: false });
     }
   }
 
   async function signup({ name, email, password }) {
     try {
-      const response = await axios.post(`${BASE_URL}/user/signup`, {
+      dispatch({ type: "setLoading", payload: true });
+      dispatch({ type: "clearError" });
+
+      if (!name || !email || !password) {
+        throw new Error("Name, email, and password are required");
+      }
+
+      const response = await api.post("/user/signup", {
         name,
         email,
         password,
       });
 
-      console.log("rsponse data hai bhai", response.data.message);
       if (response.data.success === "true") {
-        await login(email, password); // Automatically log the user in after successful signup
+        // Automatically log in after successful signup
+        return await login(email, password);
       } else {
-        dispatch({
-          type: "setError",
-          payload: response.data.message || "Signup failed. Please try again.",
-        });
+        throw new Error(response.data.message || "Signup failed");
       }
     } catch (err) {
-      console.log("Could not create account");
-      if (err.response && err.response.data) {
-        // If the error response contains a message, dispatch it
-        dispatch({
-          type: "setError",
-          payload:
-            err.response.data.message || "Signup failed. Please try again.",
-        });
-      } else {
-        dispatch({
-          type: "setError",
-          payload: "Signup failed. Please try again.",
-        });
-      }
+      const errorMessage =
+        err.response?.data?.message ||
+        err.message ||
+        "Could not create account";
+      dispatch({ type: "setError", payload: errorMessage });
+      console.error("Signup error:", errorMessage);
+      return false;
+    } finally {
+      dispatch({ type: "setLoading", payload: false });
     }
   }
 
-  const [{ user, isAuthenticated, error }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
-  return (
-    <AuthContext.Provider
-      value={{ user, login, isAuthenticated, logout, signup, error }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  // Optional: Function to clear errors
+  function clearError() {
+    dispatch({ type: "clearError" });
+  }
+
+  const value = {
+    user,
+    isAuthenticated,
+    error,
+    loading,
+    login,
+    logout,
+    signup,
+    clearError,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
+
 function useAuth() {
   const context = useContext(AuthContext);
-  if (context === undefined)
-    throw new Error("Authentication was used outside AuthProvider");
-
+  if (context === undefined) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
   return context;
 }
 
-export { AuthProvider, useAuth, AuthContext };
+export { AuthProvider, useAuth };
