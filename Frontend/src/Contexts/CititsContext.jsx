@@ -21,7 +21,7 @@ function CititsContext({ children }) {
         console.log(res, "response from server");
         setCities(res.data); // Assuming the cities data is returned in res.data
       } catch (error) {
-        alert("Error loading cities data");
+        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -37,7 +37,7 @@ function CititsContext({ children }) {
       });
       setCurrentCity(res.data); // Assuming city data is returned in res.data
     } catch (error) {
-      alert("Error loading city data");
+      console.log("Error getting city data", error);
     } finally {
       setLoading(false);
     }

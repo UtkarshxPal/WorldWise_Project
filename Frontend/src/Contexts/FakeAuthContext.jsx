@@ -37,7 +37,7 @@ function AuthProvider({ children }) {
     try {
       if (email && password) {
         const data = { email, password };
-        const result = await axios.post(`${BASE_URL}/login`, data, {
+        const result = await axios.post(`${BASE_URL}/user/login`, data, {
           withCredentials: true,
         });
 

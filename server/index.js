@@ -26,7 +26,14 @@ const connectDB = async () => {
 
 connectDB();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://travel-management-worldwise-react.onrender.com", // Allow only your frontend URL
+    credentials: true, // Allow cookies and credentials
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
