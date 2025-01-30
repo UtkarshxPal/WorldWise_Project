@@ -4,15 +4,18 @@ import PageNav from "../Components/PageNav";
 import { useEffect, useState } from "react";
 import { useAuth } from "../Contexts/FakeAuthContext";
 import Button from "../Components/Button";
-import styles from "./Login.module.css";
+import styles from "./Signup.module.css";
 
-export default function Login() {
-  const { login, isAuthenticated } = useAuth();
+export default function Signup() {
+  const { signup, isAuthenticated, error: SignError } = useAuth();
   const navigate = useNavigate();
 
-  // PRE-FILL FOR DEV PURPOSES
-  const [email, setEmail] = useState("utkarsh@gmail.com");
-  const [password, setPassword] = useState("hehehehe");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
 
   useEffect(
     function () {
@@ -23,26 +26,46 @@ export default function Login() {
     [isAuthenticated, navigate]
   );
 
-  function handleClick(e) {
-    e.preventDefault();
-    if (email && password) login(email, password);
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   }
 
-  function handleGoogleLogin() {
-    // Implement Google login
-    console.log("Google login");
+  function handleSubmit(e) {
+    e.preventDefault();
+    const { name, email, password } = formData;
+
+    if (!name || !email || !password) {
+      setError("Please fill in all fields");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      return;
+    }
+
+    signup({ name, email, password });
+  }
+
+  function handleGoogleSignup() {
+    // Implement Google signup
+    console.log("Google signup");
   }
 
   return (
     <main className={styles.login}>
       <PageNav />
-      <form className={styles.form} onSubmit={handleClick}>
-        <h2>Login</h2>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <h2>Create Account</h2>
 
         <button
           type="button"
           className={styles.googleButton}
-          onClick={handleGoogleLogin}
+          onClick={handleGoogleSignup}
         >
           <svg className={styles.googleIcon} viewBox="0 0 24 24">
             <path
@@ -69,13 +92,29 @@ export default function Login() {
           <span>or</span>
         </div>
 
+        {error && <div className={styles.error}>{error}</div>}
+
+        <div className={styles.row}>
+          <label htmlFor="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            onChange={handleChange}
+            value={formData.name}
+            placeholder="John Doe"
+          />
+        </div>
+
         <div className={styles.row}>
           <label htmlFor="email">Email address</label>
           <input
             type="email"
             id="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            name="email"
+            onChange={handleChange}
+            value={formData.email}
+            placeholder="john@example.com"
           />
         </div>
 
@@ -84,19 +123,23 @@ export default function Login() {
           <input
             type="password"
             id="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            name="password"
+            onChange={handleChange}
+            value={formData.password}
+            placeholder="Min. 8 characters"
           />
         </div>
 
+        {SignError && <div className={styles.error}>{SignError}</div>}
+
         <div>
-          <Button type="primary">Login</Button>
+          <Button type="primary">Sign up</Button>
         </div>
 
         <p className={styles.signupText}>
-          Dont have an account?{" "}
-          <Link to="/signup" className={styles.signupLink}>
-            Sign up
+          Already have an account?{" "}
+          <Link to="/login" className={styles.signupLink}>
+            Log in
           </Link>
         </p>
       </form>

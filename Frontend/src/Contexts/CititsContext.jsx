@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 const BASE_URL = "https://travel-management-worldwise-backend.onrender.com";
+const local = "http://localhost:3000";
 const CitiesContext = createContext();
 
 function CititsContext({ children }) {
@@ -13,11 +14,14 @@ function CititsContext({ children }) {
     async function fetchCities() {
       try {
         setLoading(true);
-        const res = await fetch(`${BASE_URL}/cities`);
-        const data = await res.json();
-        setCities(data);
-      } catch {
-        alert("Error loading data");
+        const res = await axios.get(`${BASE_URL}/cities`, {
+          withCredentials: true,
+        });
+
+        console.log(res, "response from server");
+        setCities(res.data); // Assuming the cities data is returned in res.data
+      } catch (error) {
+        alert("Error loading cities data");
       } finally {
         setLoading(false);
       }
@@ -28,13 +32,12 @@ function CititsContext({ children }) {
   async function getCity({ id }) {
     try {
       setLoading(true);
-
-      const res = await fetch(`${BASE_URL}/cities/${id}`);
-      const data = await res.json();
-      console.log(data);
-      setCurrentCity(data);
-    } catch {
-      alert("Error loading data");
+      const res = await axios.get(`${BASE_URL}/cities/${id}`, {
+        withCredentials: true,
+      });
+      setCurrentCity(res.data); // Assuming city data is returned in res.data
+    } catch (error) {
+      alert("Error loading city data");
     } finally {
       setLoading(false);
     }
@@ -59,12 +62,10 @@ function CititsContext({ children }) {
 
   async function createCity(newCity) {
     try {
-      const data = await axios.post(`${BASE_URL}/cities`, newCity);
-      console.log("data.data dekh lo ji", data.data.city);
-
-      setCities((cities) => [...cities, data.data.city]);
-
-      console.log("City added successfully:", data.data);
+      const res = await axios.post(`${BASE_URL}/cities`, newCity, {
+        withCredentials: true,
+      });
+      setCities((cities) => [...cities, res.data.city]); // Assuming city is in res.data.city
     } catch (error) {
       console.log(
         "Could not create new city",
@@ -76,11 +77,10 @@ function CititsContext({ children }) {
   async function deleteCity(id) {
     try {
       setLoading(true);
-      await axios.delete(`${BASE_URL}/cities/${id}`);
-
+      await axios.delete(`${BASE_URL}/cities/${id}`, { withCredentials: true });
       setCities((cities) => cities.filter((city) => city._id !== id));
     } catch (err) {
-      console.log("Error deleting City", err);
+      console.log("Error deleting city", err);
     } finally {
       setLoading(false);
     }

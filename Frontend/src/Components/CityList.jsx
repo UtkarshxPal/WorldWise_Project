@@ -16,8 +16,8 @@ function CityList() {
     <Spinner></Spinner>
   ) : (
     <ul className={styles.cityList}>
-      {cities.map((city) => (
-        <CityItem key={city.id} city={city}></CityItem>
+      {cities.map((city, i) => (
+        <CityItem key={i} city={city}></CityItem>
       ))}
     </ul>
   );

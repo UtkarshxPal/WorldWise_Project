@@ -1,0 +1,5 @@
+footer {
+  background: var(--light-background);
+  color: var(--text-color);
+  padding: 4rem 0 2rem;
+}

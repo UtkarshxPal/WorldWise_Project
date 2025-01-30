@@ -4,6 +4,9 @@ const cities = require("../models/cities");
 async function handleCreateCity(req, res) {
   try {
     const { cityName, country, emoji, date, notes, position } = req.body;
+    const userId = req.user._id;
+    console.log(req.user._id, "user id from created city");
+
     if (!cityName)
       return res.status(400).json({ message: "City name is required" });
 
@@ -14,6 +17,7 @@ async function handleCreateCity(req, res) {
       date,
       notes,
       position,
+      userId,
     });
 
     return res
@@ -29,8 +33,10 @@ async function handleCreateCity(req, res) {
 }
 
 async function handleGetCities(req, res) {
+  const userId = req.user._id;
   try {
-    const allCities = await cities.find({});
+    const allCities = await cities.find({ userId: userId });
+    console.log(allCities, "allcities");
 
     return res.status(200).json(allCities);
   } catch (err) {
@@ -75,8 +81,9 @@ async function handleGetCity(req, res) {
 
 async function handleDelete(req, res) {
   const id = req.params.id;
+  const userId = req.user._id;
   try {
-    const city = await cities.findOneAndDelete({ _id: id });
+    const city = await cities.findOneAndDelete({ userId: userId, _id: id });
 
     if (!city) {
       return res.status(404).json({ message: "Could not find city" });

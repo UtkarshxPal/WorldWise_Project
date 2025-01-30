@@ -134,6 +134,17 @@
   text-decoration: underline;
 }
 
+.error {
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: rgba(255, 59, 48, 0.1);
+  color: rgb(255, 59, 48);
+  font-size: 1.4rem;
+  text-align: center;
+  border: 1px solid rgba(255, 59, 48, 0.2);
+  margin-bottom: 1rem;
+}
+
 /* Responsive Media Queries */
 
 /* Small screens (mobile) */

@@ -26,6 +26,11 @@ const citiesSchema = mongoose.Schema({
       type: String,
     },
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // Link it to the User model
+    required: true,
+  },
 });
 
 const cities = mongoose.model("cities", citiesSchema);

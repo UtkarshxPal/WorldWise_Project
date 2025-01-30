@@ -31,13 +31,6 @@ function CityItem({ city }) {
   const { currentCity, deleteCity } = useContext(CitiesContext);
   const { cityName, emoji, date, _id: id, position = {} } = city;
 
-  console.log(
-    "emoji dekh lo bhaiya",
-    emoji,
-    "flag toemjoi",
-    flagemojiToPNG(emoji)
-  );
-  // console.log(city);
   const lat = parseFloat(position.lat || 0); // Convert to number
   const lng = parseFloat(position.lng || 0);
 

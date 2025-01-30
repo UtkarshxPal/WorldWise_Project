@@ -9,9 +9,9 @@ const {
 
 const cityRouter = express.Router();
 
-cityRouter.delete("/cities/:id", handleDelete);
-cityRouter.get("/cities/:id", handleGetCity);
-cityRouter.post("/cities", handleCreateCity);
-cityRouter.get("/cities", handleGetCities);
+cityRouter.delete("/:id", handleDelete);
+cityRouter.get("/:id", handleGetCity);
+cityRouter.post("/", handleCreateCity);
+cityRouter.get("/", handleGetCities);
 
 module.exports = cityRouter;

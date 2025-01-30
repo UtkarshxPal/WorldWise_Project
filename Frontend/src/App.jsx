@@ -15,6 +15,7 @@ import { CititsContext } from "./Contexts/CititsContext";
 import { AuthProvider } from "./Contexts/FakeAuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import Itenary from "./pages/Itenary";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -48,6 +49,8 @@ function App() {
               <Route path="form" element={<Form></Form>}></Route>
             </Route>
             <Route path="/login" element={<Login></Login>}></Route>
+            <Route path="/signUp" element={<Signup></Signup>}></Route>
+
             <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
           </Routes>
         </BrowserRouter>
