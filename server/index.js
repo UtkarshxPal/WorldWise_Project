@@ -12,6 +12,7 @@ const { checkForAuthentication, restrictTo } = require("./Middlewares/auth");
 const app = express();
 
 const allowedOrigins = [
+  "https://travel-management-worldwise-frontend.onrender.com",
   "https://travel-management-worldwise-react.onrender.com",
   "http://localhost:5173", // local development
 ];
