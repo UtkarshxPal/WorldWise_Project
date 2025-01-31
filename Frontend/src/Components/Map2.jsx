@@ -65,11 +65,8 @@ function Map2() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
-        {cities.map((city) => (
-          <Marker
-            position={[city.position.lat, city.position.lng]}
-            key={city.id}
-          >
+        {cities.map((city, i) => (
+          <Marker position={[city.position.lat, city.position.lng]} key={i}>
             <Popup>
               {flagemojiToPNG(city.emoji)}
               {city.cityName}

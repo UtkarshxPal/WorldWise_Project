@@ -5,6 +5,8 @@ const connectToMongo = require("./connection");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
+const helmet = require("helmet");
+const compression = require("compression");
 const cityRouter = require("./routes/cities");
 const authRouter = require("./routes/authRoutes");
 const cookieParser = require("cookie-parser");
@@ -12,39 +14,28 @@ const { checkForAuthentication, restrictTo } = require("./Middlewares/auth");
 const app = express();
 
 const allowedOrigins = [
-  "https://travel-management-worldwise-frontend.onrender.com",
-  "https://travel-management-worldwise-react.onrender.com",
-  "http://localhost:5173", // local development
+  "http://localhost:5173", // Development
+  "https://your-deployed-frontend-url.com", // Production
 ];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
+    origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(new Error("Blocked by CORS"));
       }
     },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Added OPTIONS
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "X-Requested-With",
-      "Accept",
-    ],
-    exposedHeaders: ["Set-Cookie"],
-    preflightContinue: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      process.env.MONGO_URI || "mongodb://127.0.0.1:27017/worldWise",
-      {}
-    );
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log("MongoDB connected");
   } catch (err) {
     console.error("MongoDB connection error:", err);
@@ -66,5 +57,5 @@ app.use("/user", authRouter);
 app.use("/cities", restrictTo("User"), cityRouter);
 
 app.listen(PORT, () => {
-  console.log("server started");
+  console.log("server started on port", PORT);
 });

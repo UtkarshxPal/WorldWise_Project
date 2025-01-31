@@ -9,7 +9,7 @@ function setUser(user) {
       role,
       _id,
     },
-    process.env.Secret_key
+    process.env.JWT_SECRET
   );
 
   return token;
@@ -18,7 +18,7 @@ function setUser(user) {
 function getUser(token) {
   if (!token) return null;
   try {
-    const decoded = jwt.verify(token, process.env.Secret_key);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return decoded;
   } catch (err) {
     console.error("Error in token validation:", err);

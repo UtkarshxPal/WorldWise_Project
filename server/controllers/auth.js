@@ -15,7 +15,7 @@ async function handleSignUp(req, res) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({
-        success: false,
+        success: "false",
         message: "Invalid email format",
       });
     }
@@ -23,7 +23,7 @@ async function handleSignUp(req, res) {
     // Password strength validation
     if (password.length < 8) {
       return res.status(400).json({
-        success: false,
+        success: "false",
         message: "Password must be at least 8 characters long",
       });
     }
@@ -31,7 +31,7 @@ async function handleSignUp(req, res) {
     const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (existingUser) {
       return res.status(409).json({
-        success: false,
+        success: "false",
         message: "User with this email already exists",
       });
     }
@@ -50,7 +50,7 @@ async function handleSignUp(req, res) {
   } catch (err) {
     console.log({ message: "Could not create user", err });
     return res.status(500).json({
-      success: false,
+      success: "false",
       message: "Could not create user",
 
       ...(process.env.NODE_ENV === "development" && { error: err.message }),
@@ -77,18 +77,20 @@ async function handleLogin(req, res) {
         .json({ success: "false", message: "Email or password incorrect" });
     }
 
-    const cookie = setUser(user);
+    const token = setUser(user);
 
-    // res.cookie("auth_token", cookie, {
+    // res.cookie("auth_token", token, {
     //   httpOnly: true, // Protects cookie from client-side JavaScript
     //   secure: false, // Do NOT set to true on HTTP (i.e., local dev without HTTPS)
     //   sameSite: "Lax", // Can be "Strict" or "Lax" based on your needs
     //   maxAge: 1000 * 60 * 60 * 24, // Cookie expiry time: 1 day
     // });
-    res.cookie("token", cookie, {
+
+    res.cookie("auth_token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Secure only in production
-      sameSite: "None", // Required for cross-origin cookies
+      secure: process.env.NODE_ENV === "production", // HTTPS-only in production
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Cross-site in production
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
     return res.json({
@@ -101,10 +103,35 @@ async function handleLogin(req, res) {
       },
     });
   } catch (err) {
-    return res
-      .status(404)
-      .json({ success: "false", message: "User not found" });
+    console.error("Login error:", err);
+    return res.status(500).json({
+      success: "false",
+      message: "Internal server error during login",
+    });
   }
 }
 
-module.exports = { handleLogin, handleSignUp };
+async function handleLogout(req, res) {
+  try {
+    // Clear the authentication cookie
+    res.clearCookie("auth_token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // HTTPS-only in production
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Cross-site in production
+      path: "/",
+    });
+
+    return res.status(200).json({
+      success: "true",
+      message: "Logout successful",
+    });
+  } catch (err) {
+    console.error("Logout error:", err);
+    return res.status(500).json({
+      success: "false",
+      message: "Could not logout",
+    });
+  }
+}
+
+module.exports = { handleLogin, handleSignUp, handleLogout };
