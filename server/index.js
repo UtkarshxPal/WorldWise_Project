@@ -15,7 +15,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173", // Development
-  "world-wise-project-two.vercel.app", // Production
+  "https://world-wise-project-two.vercel.app", // Production
 ];
 
 app.use(
