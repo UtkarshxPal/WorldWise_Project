@@ -2,7 +2,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 
-const BASE_URL = " https://worldwise-qg89.onrender.com";
+const BASE_URL = "https://worldwise-qg89.onrender.com";
 // const BASE_URL = " http://localhost:3000";
 
 const AuthContext = createContext();
