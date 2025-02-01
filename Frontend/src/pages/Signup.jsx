@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../Contexts/FakeAuthContext";
 import Button from "../Components/Button";
 import styles from "./Signup.module.css";
+import Spinner from "../Components/Spinner";
 
 export default function Signup() {
-  const { signup, isAuthenticated, error: SignError } = useAuth();
+  const { signup, isAuthenticated, error: SignError, isSigningUp } = useAuth();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -137,7 +138,11 @@ export default function Signup() {
         </div>
 
         <div>
-          <Button type="primary">Sign up</Button>
+          {isSigningUp ? (
+            <Spinner></Spinner>
+          ) : (
+            <Button type="primary">Sign up</Button>
+          )}
         </div>
 
         <p className={styles.signupText}>

@@ -8,7 +8,7 @@ import styles from "./Login.module.css";
 import Spinner from "../Components/Spinner";
 
 export default function Login() {
-  const { login, isAuthenticated, SignError, isLoggingIn } = useAuth();
+  const { login, isAuthenticated, error: LogError, isLoggingIn } = useAuth();
   const navigate = useNavigate();
 
   // PRE-FILL FOR DEV PURPOSES
@@ -89,7 +89,7 @@ export default function Login() {
             value={password}
           />
         </div>
-        {SignError && <div className={styles.error}>{SignError}</div>}
+        {LogError && <div className={styles.error}>{LogError}</div>}
         <div>
           {isLoggingIn ? (
             <Spinner></Spinner>
