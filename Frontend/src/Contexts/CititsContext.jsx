@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-// const BASE_URL = "https://travel-management-worldwise-backend.onrender.com";
-const BASE_URL = " http://localhost:3000";
+const BASE_URL = "https://worldwise-qg89.onrender.com";
+// const BASE_URL = " http://localhost:3000";
 const CitiesContext = createContext();
 
 function CititsContext({ children }) {
