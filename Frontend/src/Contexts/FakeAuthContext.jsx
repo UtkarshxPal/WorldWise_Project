@@ -1,5 +1,11 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 
 const BASE_URL = "https://worldwise-qg89.onrender.com";
@@ -12,6 +18,8 @@ const initialState = {
   isAuthenticated: false,
   error: "",
   isLoading: true,
+  isLoggingIn: false,
+  isSigningUp: false,
 };
 
 function reducer(state, action) {
@@ -28,17 +36,26 @@ function reducer(state, action) {
     case "setError":
       return { ...state, error: action.payload, isLoading: false };
     case "loading":
-      return { ...state, isLoading: false }; // Stop loading
+      return { ...state, isLoading: false };
+    case "login_start":
+      return { ...state, isLoggingIn: true };
+    case "login_success":
+      return { ...state, isLoggingIn: false };
+    case "signup_start":
+      return { ...state, isSigningUp: true };
+    case "signup_success":
+      return { ...state, isSigningUp: false };
     default:
       throw new Error("Unknown action");
   }
 }
 
 function AuthProvider({ children }) {
-  const [{ user, isAuthenticated, error, isLoading }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [
+    { user, isAuthenticated, error, isLoading, isLoggingIn, isSigningUp },
+    dispatch,
+  ] = useReducer(reducer, initialState);
+
   useEffect(() => {
     async function checkAuthStatus() {
       try {
@@ -61,6 +78,8 @@ function AuthProvider({ children }) {
 
   async function login(email, password) {
     try {
+      dispatch({ type: "setError", payload: "" });
+      dispatch({ type: "login_start" });
       if (email && password) {
         const result = await axios.post(
           `${BASE_URL}/user/login`,
@@ -86,6 +105,8 @@ function AuthProvider({ children }) {
         payload: err.response?.data?.message || "Could not login",
       });
       return false;
+    } finally {
+      dispatch({ type: "login_success" });
     }
   }
 
@@ -108,6 +129,9 @@ function AuthProvider({ children }) {
   }
   async function signup({ name, email, password }) {
     try {
+      dispatch({ type: "setError", payload: "" });
+      dispatch({ type: "signup_start" });
+
       const response = await axios.post(
         `${BASE_URL}/user/signup`,
         { name, email, password },
@@ -138,12 +162,24 @@ function AuthProvider({ children }) {
         });
       }
       return false;
+    } finally {
+      dispatch({ type: "signup_success" });
     }
   }
 
   return (
     <AuthContext.Provider
-      value={{ user, login, isAuthenticated, logout, signup, error, isLoading }}
+      value={{
+        user,
+        login,
+        isAuthenticated,
+        logout,
+        signup,
+        error,
+        isLoading,
+        isLoggingIn,
+        isSigningUp,
+      }}
     >
       {children}
     </AuthContext.Provider>

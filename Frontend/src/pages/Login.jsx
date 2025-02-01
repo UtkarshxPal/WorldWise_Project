@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../Contexts/FakeAuthContext";
 import Button from "../Components/Button";
 import styles from "./Login.module.css";
+import Spinner from "../Components/Spinner";
 
 export default function Login() {
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, SignError, isLoggingIn } = useAuth();
   const navigate = useNavigate();
 
   // PRE-FILL FOR DEV PURPOSES
@@ -88,9 +89,13 @@ export default function Login() {
             value={password}
           />
         </div>
-
+        {SignError && <div className={styles.error}>{SignError}</div>}
         <div>
-          <Button type="primary">Login</Button>
+          {isLoggingIn ? (
+            <Spinner></Spinner>
+          ) : (
+            <Button type="primary">Login</Button>
+          )}
         </div>
 
         <p className={styles.signupText}>

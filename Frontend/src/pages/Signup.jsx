@@ -51,6 +51,12 @@ export default function Signup() {
     signup({ name, email, password });
   }
 
+  useEffect(() => {
+    if (SignError) {
+      setError(SignError);
+    }
+  }, [SignError]);
+
   function handleGoogleSignup() {
     // Implement Google signup
     console.log("Google signup");
@@ -129,8 +135,6 @@ export default function Signup() {
             placeholder="Min. 8 characters"
           />
         </div>
-
-        {SignError && <div className={styles.error}>{SignError}</div>}
 
         <div>
           <Button type="primary">Sign up</Button>

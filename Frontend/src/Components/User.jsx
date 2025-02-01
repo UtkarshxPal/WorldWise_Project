@@ -27,11 +27,15 @@ function User() {
   //   },
   //   [isAuthenticated, navigate]
   // );
+  const UserName = user?.name
+    ? user.name.split(" ")[0].charAt(0).toUpperCase() +
+      user.name.split(" ")[0].slice(1).toLowerCase()
+    : "Guest"; // Fallback for undefined names
 
   return (
     <div className={styles.user}>
       {/* <img src={user.avatar} alt={user.name} /> */}
-      <span>Welcome, {user.name}</span>
+      <span>Welcome, {UserName}</span>
       <button onClick={handleClick}>Logout</button>
     </div>
   );
