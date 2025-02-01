@@ -7,6 +7,17 @@
   flex-direction: column;
   gap: 2rem;
 }
+.error {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: rgba(173, 216, 230, 0.8); /* Soft sky blue */
+  color: rgb(30, 60, 90); /* Dark navy blue for strong contrast */
+  font-size: 1.4rem;
+  text-align: center;
+  border: 1px solid rgba(70, 130, 180, 0.8); /* Muted steel blue */
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
 
 .row {
   display: flex;

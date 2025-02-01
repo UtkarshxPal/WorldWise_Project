@@ -44,6 +44,7 @@ function Form() {
   const [emoji, setEmoji] = useState();
   const [error, setError] = useState();
   const { createCity, loading } = useContext(CitiesContext);
+  const [formErr, setFormErr] = useState("");
 
   const navigate = useNavigate();
 
@@ -81,7 +82,10 @@ function Form() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    if (!notes) {
+      setFormErr("Oops! Forgot your travel notes? ✍️😊");
+      return;
+    }
     if (!cityName || !date) return;
 
     const city = {
@@ -140,6 +144,8 @@ function Form() {
           value={notes}
         />
       </div>
+
+      {formErr && <div className={styles.error}>{formErr}</div>}
 
       <div className={styles.buttons}>
         <Button type="primary">Add</Button>
