@@ -144,7 +144,10 @@ export default function Homepage() {
                 suggestions were spot-on and saved me hours of research.
               </p>
               <div className={styles["testimonial-author"]}>
-                <img src="/logo.png" alt="Sarah M." />
+                <img
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=faces&fit=crop&w=200&h=200"
+                  alt="David L."
+                />
                 <div>
                   <h4>Sarah M.</h4>
                   <span>Explored 12 cities</span>
@@ -159,7 +162,10 @@ export default function Homepage() {
                 perfect itinerary for my Japan adventure!
               </p>
               <div className={styles["testimonial-author"]}>
-                <img src="/logo.png" alt="David L." />
+                <img
+                  src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?crop=faces&fit=crop&w=200&h=200"
+                  alt="Sarah M."
+                />
                 <div>
                   <h4>David L.</h4>
                   <span>Explored 8 cities</span>
@@ -174,7 +180,10 @@ export default function Homepage() {
                 with fellow adventurers and get insider tips.
               </p>
               <div className={styles["testimonial-author"]}>
-                <img src="/logo.png" alt="Emma R." />
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=faces&fit=crop&w=200&h=200"
+                  alt="Emma R."
+                />
                 <div>
                   <h4>Emma R.</h4>
                   <span>Explored 15 cities</span>
