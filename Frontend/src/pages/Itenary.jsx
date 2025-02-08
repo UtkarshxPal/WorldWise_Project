@@ -131,9 +131,9 @@ function CreateItinerary() {
               <button
                 type="button"
                 className={styles.backButton}
-                onClick={() => navigate("/app")}
+                onClick={() => navigate("/login")}
               >
-                &larr; Back to App
+                &larr; Open map
               </button>
               <button
                 type="submit"
